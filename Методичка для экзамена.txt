@@ -60,6 +60,16 @@ _____Сортировка по возрастанию
 mainWindow.Product = mainWindow.Product.OrderByDescending(x => x.ProductCost).ToList();
 
 
+_____Добавление товара
+mainWindow.Connection("Insert into sotrudniki (fio,phone,email,parol,position)values('" + tb1.Text + "','" + tb2.Text + "','" + tb3.Text + "','" + tb4.Text + "','" + tb5.Text + "')");
+
+_____Редактирование товара
+mainWindow.Connection("UPDATE sotrudniki SET fio = '" + tb1.Text + "', phone = '" + tb2.Text + "', email = '" + tb3.Text + "', parol = '" + tb4.Text + "', position = '" + tb5.Text + "' where id = " + mainWindow.sotrudniki[mainWindow.UpdateIndex].id + ";");
+
+_____Удаление товара
+mainWindow.Connection("Delete from stoliki where nomer_stolika = '" + mainWindow.stoliki[mainWindow.UpdateIndex].nomer_stolika + "';");
+
+
 
 
 
