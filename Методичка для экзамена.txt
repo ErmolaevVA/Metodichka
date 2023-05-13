@@ -1,0 +1,67 @@
+_____Подключение к базе
+public static MySqlDataReader Connection(string query)
+        {
+            string path = "server=localhost;port=2701;database=tradefish;uid=root;pwd=;";
+            MySqlConnection connection = new MySqlConnection(path);
+            connection.Open();
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            return reader;
+        }
+
+_____Подгрузка данных из базы
+public static void LoadUser(List<User> data)
+        {
+            data.Clear();
+            MySqlDataReader query = ConnectDB.Connection("select * from `User`;");
+            if (query != null)
+            {
+                while (query.Read())
+                {
+                    data.Add(new User(
+                        Convert.ToInt32(query.GetValue(0)),
+                        Convert.ToString(query.GetValue(1)),
+                        Convert.ToString(query.GetValue(2)),
+                        Convert.ToString(query.GetValue(3)),
+                        Convert.ToInt32(query.GetValue(4))
+                        ));
+                }
+            }
+        }
+
+_____Переключение между окон
+mainWindow.frame.Navigate(new Pages.Products(mainWindow));
+
+_____Получение директории
+public string path = System.IO.Directory.GetCurrentDirectory();
+
+_____Выгрузка фото с проверкой на существование
+if (mainWindow.Product[i].ProductPhoto != String.Empty)
+                    {
+                        if (File.Exists(path + "/Images/" + mainWindow.Product[i].ProductPhoto))
+                        {
+                            Image.Source = new BitmapImage(new Uri(path + "/Images/" + mainWindow.Product[i].ProductPhoto));
+                        }
+                        else Image.Source = new BitmapImage(new Uri(path + "/Images/picture.png"));
+                    }
+                    else Image.Source = new BitmapImage(new Uri(path + "/Images/picture.png"));
+
+_____Объединение листов без повторений (Linq)
+mainWindow.Product = TempProductName.Union(TempProductDescription).ToList();
+
+_____Удаление повторяющихся элементов листа
+Temp = Temp.Distinct().ToList();
+
+_____Сортировка по убыванию
+mainWindow.Product = mainWindow.Product.OrderBy(x => x.ProductCost).ToList();
+
+_____Сортировка по возрастанию
+mainWindow.Product = mainWindow.Product.OrderByDescending(x => x.ProductCost).ToList();
+
+
+
+
+
+
+
